@@ -100,26 +100,6 @@ class _Cluster(object):
         if FLAGS.schedule == 'dlas-gpu-pack':
             self.init_dlas_pack_gpu() 
 
-    # '''
-    # Allocate job resource
-    # '''
-    # def try_get_job_res(self, job):
-    #     '''
-    #     select placement scheme
-    #     '''
-    #     if FLAGS.scheme == 'yarn':
-    #         util.print_fn('   YARN scheme is applied')
-    #         ret = self.ms_yarn_placement(job)
-    #     elif FLAGS.scheme == 'balance':
-    #         util.print_fn('   balance scheme is applied')
-    #         ret = 
-    #     else:
-    #         util.print_fn('   Default yarn scheme is applied')
-    #         ret = self.ms_yarn_placement(job)
-    #     if ret == True:
-    #         job['status'] = 'RUNNING'
-    #     return ret
-
     def init_dlas_pack_gpu(self):
         self.gpu_list[:] = []
         for switch in self.switch_list:
@@ -177,7 +157,7 @@ class _Cluster(object):
         num_gpu = job['num_gpu']
         node_list = None
         if num_gpu not in self.node_g:
-            print_fn("error: job[%d] needs %d GPUs" % (job['job_idx'], num_gpu))
+            util.print_fn("error: job[%d] needs %d GPUs" % (job['job_idx'], num_gpu))
             exit()
         node_list = self.node_g[num_gpu]
         # if num_gpu == 1:
